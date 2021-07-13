@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NoticiaService } from './services/noticia.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'noticias';
+  listNoticias:any[] = [];
+
+  constructor(private noticiaService: NoticiaService){
+
+  }
+
+  buscarNoticias(parametros:any){
+
+    this.noticiaService.getNoticias(parametros).subscribe(data =>{
+
+      this.listNoticias = data.articles;
+
+    },error =>{
+
+      console.log(error)
+    })
+  }
 }
